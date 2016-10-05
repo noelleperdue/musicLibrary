@@ -30,8 +30,12 @@ var library = {
 // p02: Other Playlist - 1 tracks
 
 var printPlaylists = function () {
-
+for (var list in library.playlists) {
+console.log(library.playlists[list].id + ": " + library.playlists[list].name + " - " + library.playlists[list].tracks.length);
 }
+}
+printPlaylists();
+
 
 
 // prints a list of all tracks, in the form:
@@ -40,8 +44,13 @@ var printPlaylists = function () {
 // t03: Four Thirty-Three by John Cage (Woodstock 1952)
 
 var printTracks = function () {
-
+for (var list in library.tracks) {
+console.log(library.tracks[list].id + ": " + library.tracks[list].name + " by " + library.tracks[list].artist + " (" + library.tracks[list].album + ")");
 }
+}
+printTracks();
+
+
 
 
 // prints a list of tracks for a given playlist, in the form:
@@ -50,15 +59,27 @@ var printTracks = function () {
 // t02: Model View Controller by James Dempsey (WWDC 2003)
 
 var printPlaylist = function (playlistId) {
+  console.log(library.playlists[playlistId].id + ": " + library.playlists[playlistId].name + " - " + library.playlists[playlistId].tracks.length + " tracks");
+  var trackNames = library.playlists[playlistId].tracks;
+  for (tracks in trackNames) {
+    var i = tracks[0]
+   var track = library.tracks[trackNames[i]];
+  console.log(track.id + ": " + track.name + " by " + track.artist + " (" + track.album + ")");
+  }
+
 
 }
-
+printPlaylist("p01")
 
 // adds an existing track to an existing playlist
 
 var addTrackToPlaylist = function (trackId, playlistId) {
-
+   library.playlists[playlistId].tracks.push(trackId);
+//for (var i = 0; i < trackNames.length; i++) {
+//  var track = library.tracks[trackNames[i]];
+//   track.push(trackId);
 }
+addTrackToPlaylist("t03", "p01");
 
 
 // generates a unique id
@@ -72,21 +93,28 @@ var uid = function() {
 // adds a track to the library
 
 var addTrack = function (name, artist, album) {
-
+var trackId = uid()
+library.tracks[trackId] = {id: trackId, name: name, artist: artist, album: album};
+console.log(library.tracks)
 }
+addTrack("Sugah", "Erykah Badu", "Mamas Gun");
+
 
 
 // adds a playlist to the library
 
 var addPlaylist = function (name) {
-
+var playListId = uid()
+library.playlists.p03 = {id: playListId, name: name}
+console.log(library.playlists);
 }
+addPlaylist("funfun");
 
 
 // STRETCH:
 // given a query string string, prints a list of tracks
 // where the name, artist or album contains the query string (case insensitive)
-// tip: use "string".search("tri") 
+// tip: use "string".search("tri")
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/search
 
 var printSearchResults = function(query) {
